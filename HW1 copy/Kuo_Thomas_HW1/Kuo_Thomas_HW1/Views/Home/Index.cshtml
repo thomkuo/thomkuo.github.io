@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html>
+
+@{
+    ViewBag.Title = "Thomas Kuo's Website";
+}
+<style>
+    A {
+        text-decoration: none;
+    }
+</style>
+<script>var TxtRotate = function (el, toRotate, period) {
+        this.toRotate = toRotate;
+        this.el = el;
+        this.loopNum = 0;
+        this.period = parseInt(period, 10) || 2000;
+        this.txt = '';
+        this.tick();
+        this.isDeleting = false;
+    };
+
+    TxtRotate.prototype.tick = function () {
+        var i = this.loopNum % this.toRotate.length;
+        var fullTxt = this.toRotate[i];
+
+        if (this.isDeleting) {
+            this.txt = fullTxt.substring(0, this.txt.length - 1);
+        } else {
+            this.txt = fullTxt.substring(0, this.txt.length + 1);
+        }
+
+        this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+        var that = this;
+        var delta = 150 - Math.random() * 100;
+
+        if (this.isDeleting) { delta /= 2; }
+
+        if (!this.isDeleting && this.txt === fullTxt) {
+            delta = this.period;
+            this.isDeleting = true;
+        } else if (this.isDeleting && this.txt === '') {
+            this.isDeleting = false;
+            this.loopNum++;
+            delta = 500;
+        }
+
+        setTimeout(function () {
+            that.tick();
+        }, delta);
+    };
+
+    window.onload = function () {
+        var elements = document.getElementsByClassName('txt-rotate');
+        for (var i = 0; i < elements.length; i++) {
+            var toRotate = elements[i].getAttribute('data-rotate');
+            var period = elements[i].getAttribute('data-period');
+            if (toRotate) {
+                new TxtRotate(elements[i], JSON.parse(toRotate), period);
+            }
+        }
+        // INJECT CSS
+        var css = document.createElement("style");
+        css.type = "text/css";
+        css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+        document.body.appendChild(css);
+    };</script>
+<body>
+    <div>
+        <br>
+        <h1>
+            Hello! I am
+            <span class="txt-rotate"
+                  data-period="2000"
+                  data-rotate='["Thomas Kuo", "a student at UT Austin", "excited to meet you!"]'>
+            </span>
+        </h1>
+        <div class="text-center">
+            <p class="fs-5">
+                My name is Thomas Kuo and I am a sophomore at
+                <a href="https://www.utexas.edu/" style="color : darkorange ;">
+                    <b>The University of Texas at Austin</b>
+                </a>
+                from Plano, Texas. I am currently studying BHP and Management Information Systems.
+            </p>
+            <div class="align-self-sm-center">
+                <img class="jumbotron" width="303" height="435"
+                     src="~/images/IMG_4050.jpg" alt="Thomas Standing in front of the Miami skyline" title="Thomas in Miami" />
+            </div>
+            <br>
+            <div class="text-center">
+                <div class="btn-group-lg">
+                    <a class="btn btn-primary" href="/Home/AboutMe">Professional</a>
+                    <a class="btn btn-primary" href="/Home/Personal">Personal</a>
+                    <a class="btn btn-primary" href="/Home/Projects">Projects</a>
+                    <a class="btn btn-primary" href="/files/Thomas_Kuo_Resume.pdf">Thomas' Resume</a>
+                </div>
+            </div>
+            <br>
+            <p>
+                Feel free to reach out if you want to talk and grab a cup of coffee! You can contact me via email at
+                <a href="mailto:thomaskuo@utexas.edu?subject=Email from the Home Page" style="color: green ;">
+                    <b>thomaskuo@utexas.edu</b>
+                </a>
+                or on
+                <a href="https://www.instagram.com/thomkuo/" style="color: red ;">
+                    <strong>Instagram</strong>
+                </a>
+                ,
+                <a href="https://www.linkedin.com/in/thomkuo/" style="color: blue ;">
+                    <strong>Linkedin</strong>
+                </a>
+                , and
+                <a href="https://www.facebook.com/thomas.kuo.961/" style="color: dodgerblue;">
+                    <strong>Facebook</strong>
+                </a>
+                .
+            </p>
+            <hr />
+            <br />
+            <h2 class="text-center">
+                TED Talk
+            </h2>
+            <p>
+                Chimamanda Adichie's Ted Talk about the danger of a single story is super inspiring to me because it is always a reminder
+                to not just think about myself but also to be aware of other people's identities and experiences. Furthermore,
+                it reminds me that if we only hear about a people, place, or situation from one point of view, we risk
+                accepting one experience as the whole truth.
+
+            </p>
+            <div class="container">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <div style="max-width:854px">
+                            <div style="max-width:854px">
+                                <div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/lang/en/chimamanda_ngozi_adichie_the_danger_of_a_single_story" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

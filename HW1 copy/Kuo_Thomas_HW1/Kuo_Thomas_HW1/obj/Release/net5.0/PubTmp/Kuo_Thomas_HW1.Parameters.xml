@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="ThomasKuo" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^/Users/thomaskuo/Documents/Spring2022/MIS333K/HW1/Kuo_Thomas_HW1/Kuo_Thomas_HW1/obj/Release/net5\.0/PubTmp/Out/$" />
+  </parameter>
+</parameters>
